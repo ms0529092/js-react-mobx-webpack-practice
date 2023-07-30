@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "baseUrl":"./",
+        "experimentalDecorators":false,
+        "allowJs": true,
+        "paths": {
+            "src":["./src"],
+            "api":["./src/axios/api/api.js"]
+        }
+        
+    },
+    "exclude":["node_modules"]
+}

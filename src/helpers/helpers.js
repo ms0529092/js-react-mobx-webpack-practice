@@ -1,0 +1,1 @@
+export const resIsOk = (res) => res && res.Success && !!res.Success;

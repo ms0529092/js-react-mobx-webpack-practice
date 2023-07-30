@@ -1,0 +1,28 @@
+{
+    "compact": true,
+    "presets": [
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root":["./"],
+                "alias": {
+                    "src":"./src",
+                    "api":"./src/axios/api",
+                    "containers":"./src/containers",
+                    "common": "./src/components/common",
+                    "helpers": "./src/helpers",
+                    "storeAction": "./src/store/storeAction"
+                }
+            }
+        ],
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy":true
+            }
+        ]
+    ]
+}
