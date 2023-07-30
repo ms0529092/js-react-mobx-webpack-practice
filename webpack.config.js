@@ -18,11 +18,9 @@ const config = (env, argv) => {
 
     /** 打包壓縮最佳化設定 */
     const optimization = {
-        minimize:true,      //是否啟用最小化處理
-        //namedModules:false, //是否在輸出 bundle 中的模組加上名稱
-        //namedChunks:false,  //是否在輸出 Chunks 時的 ID 改為名稱        
-        flagIncludedChunks:true, //是否加載大型chunks子集(在執行環境 production 下，該項會默認 true)
-        removeEmptyChunks:true, //是否移除空白的chunk
+        minimize:true,
+        flagIncludedChunks:true,
+        removeEmptyChunks:true,
         splitChunks:{
             chunks:'all',
             cacheGroups:{
@@ -42,7 +40,6 @@ const config = (env, argv) => {
                 extractComments: true,
                 parallel: true,
                 terserOptions: {
-                    // https://github.com/webpack-contrib/terser-webpack-plugin#terseroptions
                     compress: {
                         drop_console: true,
                     },
@@ -98,22 +95,22 @@ const config = (env, argv) => {
     /** webpack-dev-server的設定 */
     const devServer = {
         static:{
-            directory: path.resolve(__dirname, 'dist') // 本來打包完的檔案位置(4.0.0版之後的設定方法)(如未設定將打包置public)
+            directory: path.resolve(__dirname, 'dist') 
         },
-        proxy:{         //建立代理伺服器
+        proxy:{         
             '/api/Record/**':{
-                target:'http://nexifytw.mynetgear.com:45000/',  // 需要跨域的API地址
-                pathRewrite: { '^/': '' },           // 修改請求的API路径
-                changeOrigin: true,                     // 是否讓target是域名
-                secure: false,                          // 是否接受運行在HTTPS的安全協定上
+                target:'http://nexifytw.mynetgear.com:45000/',
+                pathRewrite: { '^/': '' },           
+                changeOrigin: true,                     
+                secure: false,                          
                 logLevel: 'debug',
             },
             
         },
-        port:8787,      // 預覽網頁要跑在哪個port
-        compress: true, // 我們所有的檔案壓縮變成 .gzip 的檔案(因為會有壓縮這個行為，所以就會吃一些資源)
-        open: true,     // 是否要自動開啟瀏覽器
-        hot: true       // 是否開啟熱更新(HMR (Hot Module Replacement)，透過啟用這個屬性，當我們修改 src 底下的資源時，也會同時更新模擬伺服器)
+        port:8787,      
+        compress: true, 
+        open: true,     
+        hot: true       
     }
 
     /** webpack外掛組件的設定 */
@@ -134,19 +131,19 @@ const config = (env, argv) => {
 
         /** webpack 打包時使用html 模板生成 */
         new HtmlWebpackPlugin({
-            title:'你ㄇㄇ知道你在這裡講幹話碼?',
-            template:'./src/index.ejs',              // 用於生成的模板
-            filename:'./index.html',                 // 生成後的檔名
-            inject:true,                             // 注入所有的資源到特定的 template 或者 templateContent 中，* * 如果設置為 true 或者 body，所有的 javascript 資源將被放置到 body 元素的底部，’head’ 將放置到 head 元素中
-            favicons:'favicon',                      // 頁籤icon
-            hash:true,                               // 如果為 true, 將添加一個唯一的 webpack 編譯 hash 到所有包含的腳本和 CSS 文件，對於解除 cache 很有用
-            cache:true,                              // 默認值為 true，在文件修改之後才會發佈文件
-            minify:{                                 // 壓縮並優化 HTML
-                collapseWhitespace: true,            // 預設值 false，是否去掉註解
-                removeComments: true,                // 預設值 false，是否去掉空格
-                removeRedundantAttributes: true,     // 删除<script>的type="text/javascript"
-                removeScriptTypeAttributes: true,    // 删除script的类型属性，在h5下面script的type默认值：text/javascript
-                removeStyleLinkTypeAttributes: true, // 删除<style>和<link>的type="text/css"
+            title:'js-react-mobx-webpack-practice',
+            template:'./src/index.ejs',              
+            filename:'./index.html',                 
+            inject:true,                             
+            favicons:'favicon',                      
+            hash:true,                               
+            cache:true,                              
+            minify:{                                 
+                collapseWhitespace: true,            
+                removeComments: true,                
+                removeRedundantAttributes: true,     
+                removeScriptTypeAttributes: true,    
+                removeStyleLinkTypeAttributes: true, 
             }
         }),
 
@@ -159,13 +156,13 @@ const config = (env, argv) => {
 
     /** webpack 匯入解析設定 */
     const resolve = {
-        modules:[path.resolve(__dirname, 'src'), 'node_modules'], //解析設定目錄下的模組 
+        modules:[path.resolve(__dirname, 'src'), 'node_modules'], 
         alias:{
             config:path.resolve(__dirname, './src/config/'),
-            api:path.resolve(__dirname, './src/actions/api.js')   //解析路徑
+            api:path.resolve(__dirname, './src/actions/api.js')   
         },
-        extensions: ['.js', '.css', '.scss', '.json'],  //解析匯入模組格式(import 時可不寫附檔名)
-        symlinks:false  //npm link 是否生效
+        extensions: ['.js', '.css', '.scss', '.json'],  
+        symlinks:false  
     }
 
     if(process.env.ANALYZE){
